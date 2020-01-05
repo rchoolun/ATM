@@ -1,0 +1,21 @@
+﻿@using NVisonIT.AutomatedTellerMachine.Business.ViewModel
+@if (Session["LogIn"] != null)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+<ul class="nav navbar-nav navbar-right">
+    <li>
+        @Html.ActionLink("Hello " + Session["UserName"].ToString() + "!", "Index", "Home", routeValues: null, htmlAttributes: new { id = "IndexLink" })
+    </li>
+    <li>@Html.ActionLink("Log Off", "LogOff", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+</ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

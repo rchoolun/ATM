@@ -1,0 +1,101 @@
+﻿@using System.Globalization;
+@model NVisonIT.AutomatedTellerMachine.Business.ViewModel.AccountViewModel
+@{
+    ViewBag.Title = "Withdrawal Screen";
+}
+
+@using (Html.BeginForm())
+{
+    <div class="jumbotron">
+        <h2>Account Information</h2>
+        <div style="position: relative; top: 0; right: 0; width: 500px; text-align:left;">
+            @Html.Label("Date", DateTime.Now.ToLongDateString())
+        </div>
+
+        <h1 style="text-align:center">@Html.Label("Amount", Model.AmountAvailable.ToString("C2", CultureInfo.CurrentCulture))</h1>
+
+    </div>
+    <div class="row"><p><h2>Withdrawal</h2></p></div>
+    <div class="row">
+        <div class="col-md-4">
+            <p>
+                <h2>
+                    @Html.RadioButtonFor(m => m.AmountToDebit, 50) 50
+                </h2>
+            </p>
+            <p>
+                <h2>
+                    @Html.RadioButtonFor(m => m.AmountToDebit, 500) 500
+                </h2>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <p>
+                <h2>
+                    @Html.RadioButtonFor(m => m.AmountToDebit, 100) 100
+                </h2>
+            </p>
+            <p>
+                <h2>
+                    @Html.RadioButtonFor(m => m.AmountToDebit, 1000) 1000
+                </h2>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <p>
+                <h2>
+                    @Html.RadioButtonFor(m => m.AmountToDebit, 200) 200
+                </h2>
+            </p>
+            <p>
+                <h2>
+                    <label>Enter Amount: </label> @Html.EditorFor(m => m.UserAmountToDebit, new { htmlAttributes = new { @class = "form-control" } })
+                </h2>
+
+            </p>
+        </div>
+        <div class="row">
+            <p>
+                <div class="form-group" style="text-align:right">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Withdraw" class="btn btn-default" />
+                    </div>
+                </div>
+            </p>
+        </div>
+
+        <div class="row">
+             <p>
+                <h2>
+                    @if (!string.IsNullOrEmpty(ViewBag.TransactionMessage))
+                    {
+                        @ViewBag.TransactionMessage
+                    }
+
+                </h2>
+            </p>
+             <p>
+                 <h2>
+                     @if (!string.IsNullOrEmpty(Model.NoteCounter))
+                     {
+                         @Html.Label("Amount", "Distributed Notes => " + Model.NoteCounter)
+                     }
+
+                 </h2>
+
+                 @if (!string.IsNullOrEmpty(Model.NoteCounter))
+                 {
+                     <div class="form-group" style="text-align:right">
+                         <div class="col-md-offset-2 col-md-10">
+                             <input type="button" value="Print Transaction" onclick="window.location='@Url.Action("Print", "Print")'" />
+                         </div>
+                     </div>
+                 }
+                 
+             </p>
+        </div>
+
+    </div>
+
+
+}
